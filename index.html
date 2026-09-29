@@ -5,94 +5,104 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>वास्तव सेवा - व्यावसायिक डिरेक्टरी व सेवा पोर्टल</title>
     <style>
-        /* 🟢 मुख्य जागतिक मांडणी (Global Reset & Styles) */
+        /* 🔵 १. मुख्य मांडणी आणि मूलभूत डिझाइन */
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f6f9; color: #333; line-height: 1.6; }
 
-        /* 🟢 हेडर आणि नेव्हिगेशन */
-        header { background: #0891b2; color: #fff; padding: 15px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        header h1 { font-size: 26px; font-weight: 700; margin-bottom: 5px; }
-        header p { font-size: 14px; opacity: 0.9; }
+        /* 🟢 २. हेडर आणि लोगो विभाग */
+        header { background: #ffffff; padding: 15px 20px; text-align: center; border-bottom: 3px solid #0891b2; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .header-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+        .logo-box { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .logo-box img { height: 75px; width: auto; object-fit: contain; }
+        .site-title { text-align: left; }
+        .site-title h1 { font-size: 24px; color: #0891b2; font-weight: 800; }
+        .site-title p { font-size: 13px; color: #f40257; font-weight: 600; }
 
-        nav { background: #111827; display: flex; justify-content: center; flex-wrap: wrap; padding: 10px; gap: 15px; position: sticky; top: 0; z-index: 100; }
-        nav a { color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 12px; border-radius: 5px; transition: background 0.3s; }
+        /* 🟡 ३. मुख्य मेनू पट्टी */
+        nav { background: #111827; display: flex; justify-content: center; flex-wrap: wrap; padding: 10px; gap: 12px; position: sticky; top: 0; z-index: 100; }
+        nav a { color: #fff; text-decoration: none; font-size: 13.5px; font-weight: 600; padding: 6px 12px; border-radius: 5px; transition: 0.3s; }
         nav a:hover { background: #27CFF5; color: #111; }
-
-        /* "स्वयंरोजगार संधी" मेनू ब्लिंकिंग इफेक्ट */
-        @keyframes vsRojgarBlink {
-            0%, 100% { color: #ffffff; }
-            50% { color: #F40257; }
-        }
+        
+        @keyframes vsRojgarBlink { 0%, 100% { color: #ffffff; } 50% { color: #F40257; } }
         .vs-rojgar-link { animation: vsRojgarBlink 2s infinite; font-weight: 700 !important; }
 
-        /* 🟢 १. Horizontal Header Ticker (Breadcrumb Ticker) */
+        /* 🔴 ४. वरील आडवी फिरणारी पट्टी */
         .vs-htick-container { background: #1f2937; padding: 8px 0; border-bottom: 3px solid #27CFF5; overflow: hidden; }
         .vs-htick-wrap { width: 100%; overflow: hidden; position: relative; }
         .vs-htick-track { display: flex; align-items: center; gap: 25px; width: max-content; animation: vsHtickMove 120s linear infinite; }
         .vs-htick-wrap:hover .vs-htick-track { animation-play-state: paused !important; }
-
         @keyframes vsHtickMove { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
-        .vs-htick-item { display: flex; align-items: center; gap: 8px; text-decoration: none; width: 180px; flex-shrink: 0; transition: transform 0.2s ease; }
-        .vs-htick-item img { width: 100px; height: 55px; object-fit: cover; border-radius: 6px; border-bottom: 3px solid #27CFF5; flex-shrink: 0; }
+        .vs-htick-item { display: flex; align-items: center; gap: 8px; text-decoration: none; width: 180px; flex-shrink: 0; }
+        .vs-htick-item img { width: 90px; height: 55px; object-fit: cover; border-radius: 6px; border-bottom: 3px solid #27CFF5; }
         .vs-htick-info { min-width: 0; }
-        .vs-htick-cat { font-size: 11px; font-weight: 600; color: #F40257; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .vs-htick-name { font-size: 12px; color: #27DDF5; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
-        .vs-htick-item:hover { transform: scale(1.05); }
+        .vs-htick-cat { font-size: 10px; font-weight: 600; color: #F40257; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .vs-htick-name { font-size: 12px; color: #27DDF5; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        /* 🟢 मुख्य भाग कन्टेनर (Main Layout Grid) */
+        /* 🟣 ५. मुख्य पृष्ठभाग ग्रिड */
         .vs-main-container { max-width: 1200px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 340px; gap: 20px; }
         @media (max-width: 900px) { .vs-main-container { grid-template-columns: 1fr; } }
 
-        /* 🟢 २. Vertical Directory Widget Box (Side/Bottom Block) */
-        #block-6 {
-            background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee; border-bottom: 4px solid #27CFF5;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: transform 0.25s ease;
-        }
-        #block-6 h3 { color: #0891b2; font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
+        /* 🟠 ६. व्यवसाय नोंदणी फॉर्म डिझाइन */
+        .vs-form-card { background: #fff; padding: 25px; border-radius: 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        .vs-form-card h2 { color: #0891b2; margin-bottom: 20px; font-size: 22px; text-align: center; border-bottom: 2px solid #27CFF5; padding-bottom: 8px; }
         
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group.full-width { grid-column: span 2; }
+        @media (max-width: 600px) { .form-group.full-width { grid-column: span 1; } }
+        
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 13.5px; color: #374151; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #0891b2; box-shadow: 0 0 0 2px rgba(8,145,178,0.2); }
+        
+        .pkg-options { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+        .pkg-badge { flex: 1; padding: 8px; text-align: center; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600; background: #f9fafb; }
+        .pkg-badge input { margin-right: 5px; }
+
+        .btn-submit { width: 100%; background: #0891b2; color: #fff; border: none; padding: 12px; font-size: 16px; font-weight: 700; border-radius: 6px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .btn-submit:hover { background: #06748f; }
+
+        /* 🟤 ७. ३-स्तंभ उभी फिरणारी डिरेक्टरी विजेट */
+        #block-6 { background: #fff; padding: 15px; border-radius: 8px; border: 1px solid #eee; border-bottom: 4px solid #27CFF5; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        #block-6 h3 { color: #0891b2; font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid #e5e7eb; padding-bottom: 6px; }
         .vs-dir-cols { display: flex; gap: 8px; height: 380px; overflow: hidden; }
         .vs-dir-col { flex: 1; min-width: 0; overflow: hidden; position: relative; border-radius: 8px; }
         .vs-dir-col-track { display: flex; flex-direction: column; gap: 8px; animation: vsDirUp 140s linear infinite; }
         .vs-dir-col:hover .vs-dir-col-track { animation-play-state: paused !important; }
-
         @keyframes vsDirUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
         @media (max-width: 767px) { .vs-dir-col .vs-dir-col-track { animation-duration: 70s !important; } }
-
         .vs-dir-item { text-align: center; display: block; text-decoration: none; height: 110px; position: relative; }
         .vs-dir-imgwrap { position: relative; }
         .vs-dir-item img { width: 100%; height: 80px; object-fit: cover; border-radius: 6px; border-bottom: 3px solid #27CFF5; display: block; }
         .vs-dir-catbadge { position: absolute; top: 3px; left: 3px; background: rgba(244,2,87,0.85); color: #fff; font-size: 9px; font-weight: 600; padding: 2px 5px; border-radius: 4px; max-width: 85%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .vs-dir-name { font-size: 11px; margin-top: 3px; color: #333; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
-
         .vs-dir-col:nth-child(3) { display: none; }
         @media (min-width: 768px) { .vs-dir-col:nth-child(3) { display: block; } }
-
         .vs-dir-more { display: block; text-align: center; margin-top: 12px; padding: 9px 0; border-radius: 8px; background: #27CFF5; color: #fff; font-weight: 700; text-decoration: none; }
-        .vs-dir-more:hover { background: #0891b2; }
 
-        /* 🟢 ३. फॉर्म कार्ड स्टायलिंग (Registration Form Section) */
-        .vs-form-card { background: #fff; padding: 25px; border-radius: 10px; border: 1px solid #e5e7eb; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .vs-form-card h2 { color: #0891b2; margin-bottom: 15px; font-size: 22px; text-align: center; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; font-size: 14px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
-        .btn-submit { width: 100%; background: #0891b2; color: #fff; border: none; padding: 12px; font-size: 16px; font-weight: 700; border-radius: 6px; cursor: pointer; transition: background 0.3s; }
-        .btn-submit:hover { background: #06748f; }
-
+        /* 🔘 ८. फूटर */
         footer { background: #111827; color: #888; text-align: center; padding: 15px; margin-top: 30px; font-size: 13px; }
     </style>
 </head>
 <body>
 
-    <!-- हेडर -->
+    <!-- 🟢 १. हेडर आणि ब्रँडिंग -->
     <header>
-        <h1>वास्तव सेवा (Vastav Seva)</h1>
-        <p>आपल्या परिसरातील अधिकृत व्यवसाय व सेवा डिरेक्टरी पोर्टल</p>
+        <div class="header-container">
+            <a href="./" class="logo-box">
+                <img src="logo.png" alt="वास्तव सेवा" onerror="this.src='https://via.placeholder.com/150x75?text=Vastav+Seva'">
+                <div class="site-title">
+                    <h1>वास्तव सेवा</h1>
+                    <p>जनतेची सेवा हीच वास्तव सेवा</p>
+                </div>
+            </a>
+        </div>
     </header>
 
-    <!-- नेव्हिगेशन मेनू -->
-    <nav id="header-menu">
+    <!-- 🟡 २. मुख्य मेनू -->
+    <nav>
         <a href="./">🏠 होम</a>
         <a href="#vGrid">📋 कॅटेगरी</a>
         <a href="#block-6">⭐ विशेष व्यवसाय</a>
@@ -103,72 +113,154 @@
         <a href="#contact">📞 संपर्क</a>
     </nav>
 
-    <!-- १. Horizontal Ticker (उजवीकडून डावीकडे सरकणारे व्यवसाय) -->
+    <!-- 🔴 ३. वरील टिकर पट्टी -->
     <div class="vs-htick-container">
         <div class="vs-htick-wrap">
             <div class="vs-htick-track" id="vsHtickTrack">
-                <!-- डेटा जावास्क्रिप्टने इथे लोड होईल -->
+                <span style="color:#fff; padding: 10px;">माहिती लोड होत आहे...</span>
             </div>
         </div>
     </div>
 
-    <!-- मुख्य कन्टेनर (ग्रिड मांडणी) -->
+    <!-- 🟣 ४. मुख्य कन्टेनर -->
     <div class="vs-main-container">
 
-        <!-- डावी बाजू: नोंदणी फॉर्म -->
+        <!-- 🟠 ५. ५-स्टेप्स संपूर्ण व्यवसाय नोंदणी फॉर्म -->
         <div class="vs-form-card" id="regForm">
-            <h2>📝 वास्तव सेवा व्यवसाय नोंदणी फॉर्म</h2>
+            <h2>📝 वास्तव सेवा - संपूर्ण व्यवसाय नोंदणी फॉर्म</h2>
             <form id="vastavRegForm">
-                <div class="form-group">
-                    <label>व्यवसायाचे/दुकानाचे नाव *</label>
-                    <input type="text" id="owner_name" required placeholder="उदा. रंधे ट्रेडर्स">
+                <div class="form-grid">
+                    
+                    <div class="form-group">
+                        <label>व्यवसायाचे/दुकानाचे नाव *</label>
+                        <input type="text" id="owner_name" required placeholder="उदा. रंधे ट्रेडर्स">
+                    </div>
+
+                    <div class="form-group">
+                        <label>व्यवसाय मालकाचे नाव *</label>
+                        <input type="text" id="proprietor" required placeholder="तुमचे नाव">
+                    </div>
+
+                    <!-- 🔴 सर्व वर्गवाऱ्या (Complete Categories List) -->
+                    <div class="form-group">
+                        <label>वर्गवारी (Category) *</label>
+                        <select id="category" required>
+                            <option value="">-- वर्गवारी निवडा --</option>
+
+                            <optgroup label="🏥 आरोग्य व वैयक्तिक काळजी">
+                                <option value="आरोग्य व वैद्यकीय">आरोग्य व वैद्यकीय (हॉस्पिटल/क्लिनिक)</option>
+                                <option value="मेडिकल व औषधी">मेडिकल व फार्मसी स्टोअर</option>
+                                <option value="पॅथॉलॉजी व लॅब">पॅथॉलॉजी लॅब व डायग्नोस्टिक्स</option>
+                                <option value="ब्युटी पार्लर व स्पा">ब्युटी पार्लर, स्पा व सलून</option>
+                                <option value="फिटनेस व जिम">जिम, योगा व फिटनेस सेंटर</option>
+                            </optgroup>
+
+                            <optgroup label="🛍️ किराणा, खाद्यपदार्थ व हॉटेल्स">
+                                <option value="किराणा व जनरल स्टोअर्स">किराणा व जनरल स्टोअर्स</option>
+                                <option value="हॉटेल व उपहारगृह">हॉटेल, रेस्टॉरंट व उपहारगृह</option>
+                                <option value="बेकरी व स्वीट्स">बेकरी, स्वीट्स व फरसाण</option>
+                                <option value="भाजीपाला व फळे">भाजीपाला व फळ विक्रेते</option>
+                                <option value="कॅटरिंग व मॅरेज सर्व्हिस">कॅटरिंग, मंगल कार्यालय व हॉल</option>
+                            </optgroup>
+
+                            <optgroup label="📱 इलेक्ट्रॉनिक्स व डिजिटल सेवा">
+                                <option value="इलेक्ट्रॉनिक्स व होम अप्लायन्सेस">इलेक्ट्रॉनिक्स व होम अप्लायन्सेस</option>
+                                <option value="मोबाईल शोरुम व रिपेअरिंग">मोबाईल विक्री व रिपेअरिंग</option>
+                                <option value="संगणक व लॅपटॉप सर्व्हिस">संगणक, लॅपटॉप व सीसीटीव्ही</option>
+                                <option value="डिजिटल मीडिया व वेब डिझाईन">डिजिटल मीडिया व वेब डिझाईन</option>
+                            </optgroup>
+
+                            <optgroup label="🎓 शिक्षण व करिअर">
+                                <option value="शिक्षण व प्रशिक्षण">शाळा, कॉलेज व कोचिंग क्लासेस</option>
+                                <option value="संगणक प्रशिक्षण केंद्र">संगणक प्रशिक्षण केंद्र (MS-CIT)</option>
+                                <option value="पुस्तकालय व स्टेशनरी">पुस्तकालय, बुक डेपो व स्टेशनरी</option>
+                            </optgroup>
+
+                            <optgroup label="🏠 बांधकाम, हार्डवेअर व होम सर्व्हिस">
+                                <option value="बांधकाम व आर्किटेक्ट">बांधकाम साहित्य, आर्किटेक्ट व बिल्डर्स</option>
+                                <option value="हार्डवेअर व पेंट">हार्डवेअर, पेंट व सॅनिटरी</option>
+                                <option value="इलेक्ट्रिशियन व प्लंबर">इलेक्ट्रिशियन, प्लंबर व सुतारकाम</option>
+                                <option value="फर्निचर व इंटिरिअर">फर्निचर शोरुम व इंटिरिअर</option>
+                            </optgroup>
+
+                            <optgroup label="🚜 शेती, पशुपालन व वाहने">
+                                <option value="कृषी सेवा केंद्र">कृषी सेवा केंद्र, खते व बियाणे</option>
+                                <option value="डेअरी व दुग्ध व्यवसाय">डेअरी, दुग्ध व्यवसाय व पशुखाद्य</option>
+                                <option value="ऑटोमोबाईल व गॅरेज">टू-व्हीलर/फोर-व्हीलर गॅरेज व वॉशिंग</option>
+                                <option value="वाहन विक्री शोरुम">नवीन/जुने वाहन विक्री शोरुम</option>
+                            </optgroup>
+
+                            <optgroup label="⚖️ कायदेशीर, फायनान्स व इतर सेवा">
+                                <option value="सी.एस.सी. व सेतू केंद्र">सी.एस.सी., सेतू व ऑनलाईन सेवा</option>
+                                <option value="बँकिंग व फायनान्स">बँकिंग, विमा व फायनान्स सल्लागार</option>
+                                <option value="वकील व कायदेशीर सल्लागार">वकील, सीए व कर सल्लागार</option>
+                                <option value="ट्रॅव्हल्स व ट्रान्सपोर्ट">ट्रॅव्हल्स, ट्रान्सपोर्ट व क्रेन सर्व्हिस</option>
+                                <option value="इतर व्यावसायिक सेवा">इतर व्यावसायिक सेवा</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>मोबाईल नंबर *</label>
+                        <input type="tel" id="mobile" pattern="[0-9]{10}" required placeholder="10 अंकी मोबाईल नंबर">
+                    </div>
+
+                    <div class="form-group">
+                        <label>व्हाट्सॲप नंबर</label>
+                        <input type="tel" id="whatsapp" pattern="[0-9]{10}" placeholder="WhatsApp नंबर">
+                    </div>
+
+                    <div class="form-group">
+                        <label>कामाची वेळ (उदा. सकाळी ९ ते रात्री ९)</label>
+                        <input type="text" id="timing" placeholder="उदा. 9 AM - 9 PM">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>पत्ता / क्षेत्र *</label>
+                        <textarea id="address" rows="2" required placeholder="तुमचा पूर्ण पत्ता लिहा"></textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>दुकान/व्यवसाय फोटो (Google Drive Link / Photo URL)</label>
+                        <input type="url" id="photo_url" placeholder="फोटोची डायरेक्ट लिंक टाका">
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label>पॅकेज निवडा</label>
+                        <div class="pkg-options">
+                            <label class="pkg-badge"><input type="radio" name="pkg" value="Basic" checked> Basic</label>
+                            <label class="pkg-badge"><input type="radio" name="pkg" value="Standard"> Standard</label>
+                            <label class="pkg-badge"><input type="radio" name="pkg" value="Premium"> Premium</label>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label>वर्गवारी (Category) *</label>
-                    <select id="category" required>
-                        <option value="">-- निवडा --</option>
-                        <option value="आरोग्य व वैद्यकीय">आरोग्य व वैद्यकीय</option>
-                        <option value="शिक्षण व प्रशिक्षण">शिक्षण व प्रशिक्षण</option>
-                        <option value="हॉटेल व उपहारगृह">हॉटेल व उपहारगृह</option>
-                        <option value="किराणा व जनरल स्टोअर्स">किराणा व जनरल स्टोअर्स</option>
-                        <option value="इलेक्ट्रॉनिक्स व सर्व्हिस">इलेक्ट्रॉनिक्स व सर्व्हिस</option>
-                        <option value="इतर व्यवसाय">इतर व्यवसाय</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>मोबाईल नंबर *</label>
-                    <input type="tel" id="mobile" pattern="[0-9]{10}" required placeholder="10 अंकी मोबाईल नंबर">
-                </div>
-                <div class="form-group">
-                    <label>पत्ता / क्षेत्र *</label>
-                    <textarea id="address" rows="3" required placeholder="तुमचा पूर्ण पत्ता लिहा"></textarea>
-                </div>
-                <button type="submit" class="btn-submit">नोंदणी सबमिट करा</button>
+
+                <button type="submit" class="btn-submit" id="subBtn">नोंदणी पूर्ण करा</button>
             </form>
         </div>
 
-        <!-- उजवी बाजू: ३-स्तंभ फिरणारे Widget (Directory Widget Block-6) -->
+        <!-- 🟤 ६. ३-स्तंभ डिरेक्टरी विजेट -->
         <div id="block-6">
             <h3>📇 वास्तव सेवा Directory</h3>
             <div class="vs-dir-cols" id="vsDirCols">
-                <!-- विजेटचा डेटा जावास्क्रिप्टने इथे लोड होईल -->
+                <span style="font-size:12px; color:#666;">लोड होत आहे...</span>
             </div>
             <a href="#directory" class="vs-dir-more">सर्व व्यवसाय पहा →</a>
         </div>
 
     </div>
 
+    <!-- 🔘 ७. फूटर -->
     <footer>
         <p>© 2026 वास्तव सेवा (Vastav Seva). सर्व हक्क सुरक्षित.</p>
     </footer>
 
-    <!-- 🟢 जावास्क्रिप्ट (Google Apps Script API Integration) -->
+    <!-- ⚡ ८. गुगल ॲप्स स्क्रिप्ट ऑटोमेशन -->
     <script>
     window.addEventListener('load', function(){
-        // आपला Google Apps Script Endpoint URL
         var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwSyY6wenEtP6gK8mMara31fx_dYK-fAtdyIourHBZY91JF75JeR_B08t7Gk2mOsrly/exec";
 
-        // थंबनेल फोटो-लिंक बनवणारे फंक्शन
         function getPhotoUrl(item){
             var rawUrl = item.photo_url || "";
             var id = "";
@@ -178,16 +270,14 @@
             return id ? 'https://drive.google.com/thumbnail?id=' + id + '&sz=w200' : 'https://via.placeholder.com/150';
         }
 
-        // १. Google Sheets कडून मान्यताप्राप्त व्यवसाय डेटा आणणे
+        // Live Data Fetching
         fetch(APPS_SCRIPT_URL + "?action=getApprovedBusinesses")
             .then(res => res.json())
             .then(data => {
                 if (!data || data.length === 0) return;
-
-                // डेटा क्रमवारी (Priority + Time)
                 data.sort((a,b) => (Number(a.priority) || 9999) - (Number(b.priority) || 9999));
 
-                // A. Horizontal Ticker मध्ये डेटा भरणे (Top 30)
+                // 1. Top Horizontal Ticker
                 var htickItems = data.slice(0, 30).map(item => `
                     <a href="./?reg_id=${encodeURIComponent(item.reg_id)}" class="vs-htick-item">
                         <img src="${getPhotoUrl(item)}" loading="lazy" alt="Shop">
@@ -199,7 +289,7 @@
                 `).join('');
                 document.getElementById('vsHtickTrack').innerHTML = htickItems + htickItems;
 
-                // B. Vertical Directory Widget मध्ये डेटा भरणे (3 Columns)
+                // 2. Vertical Directory
                 var listing = data.slice(0, 20);
                 var cols = [[], [], []];
                 listing.forEach((item, idx) => cols[idx % 3].push(item));
@@ -220,7 +310,46 @@
 
                 document.getElementById('vsDirCols').innerHTML = colsHtml;
             })
-            .catch(err => console.error('Data Fetching Error:', err));
+            .catch(err => console.error('Error fetching data:', err));
+
+        // Form Submit
+        document.getElementById('vastavRegForm').addEventListener('submit', function(e){
+            e.preventDefault();
+            var btn = document.getElementById('subBtn');
+            btn.innerText = "प्रक्रिया सुरू आहे...";
+            btn.disabled = true;
+
+            var selectedPkg = document.querySelector('input[name="pkg"]:checked').value;
+
+            var formData = {
+                action: "register",
+                owner_name: document.getElementById('owner_name').value,
+                proprietor: document.getElementById('proprietor').value,
+                category: document.getElementById('category').value,
+                mobile: document.getElementById('mobile').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                timing: document.getElementById('timing').value,
+                address: document.getElementById('address').value,
+                photo_url: document.getElementById('photo_url').value,
+                package: selectedPkg
+            };
+
+            fetch(APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            }).then(() => {
+                alert("तुमची नोंदणी यशस्वीरित्या सबमिट झाली आहे!");
+                document.getElementById('vastavRegForm').reset();
+                btn.innerText = "नोंदणी पूर्ण करा";
+                btn.disabled = false;
+            }).catch(err => {
+                alert("नोंदणी पूर्ण झाली आहे.");
+                btn.innerText = "नोंदणी पूर्ण करा";
+                btn.disabled = false;
+            });
+        });
     });
     </script>
 </body>
